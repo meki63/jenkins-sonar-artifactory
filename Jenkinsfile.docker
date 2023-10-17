@@ -4,7 +4,6 @@ pipeline {
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials') // Create Docker Hub credentials in Jenkins
         SLACK_CHANNEL = '#build-status'
-        SLACK_URL = 'https://hooks.slack.com/services/your/slack/webhook/url'
     }
 
     stages {
