@@ -1,3 +1,11 @@
+# To use this project 
+## You must fork the project before clone it
+
+``` 
+git clone https://github.com/cloudsheger/jenkins-sonar-artifactory.git
+
+```
+
 # How to run docker compose 
 ```
 docker-compose up -d
