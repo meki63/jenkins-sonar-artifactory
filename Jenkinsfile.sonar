@@ -26,19 +26,6 @@ pipeline {
             }
           }
         }
-     /*  stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('SonarScanner') {
-                    sh "mvn sonar:sonar \
-                        -Dsonar.host.url=http://34.239.127.114:9000 \
-                        -Dsonar.projectKey=demo \
-                        -Dsonar.login=${SONAR_LOGIN_TOKEN} \
-                        -Dsonar.projectName='demo' \
-                        -Dsonar.projectVersion=1.0.0 \
-                        -Dsonar.java.binaries=target/classes"
-                }
-            }
-        } */ 
     }  
     post{
         failure{
@@ -67,3 +54,18 @@ stage('Deploy') {
         }
 */        
 
+ /*  
+stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('SonarScanner') {
+                    sh "mvn sonar:sonar \
+                        -Dsonar.host.url=http://34.239.127.114:9000 \
+                        -Dsonar.projectKey=demo \
+                        -Dsonar.login=${SONAR_LOGIN_TOKEN} \
+                        -Dsonar.projectName='demo' \
+                        -Dsonar.projectVersion=1.0.0 \
+                        -Dsonar.java.binaries=target/classes"
+                }
+            }
+        } 
+*/ 
