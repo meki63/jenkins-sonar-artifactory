@@ -18,11 +18,22 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage('SonarQube analysis') {
+        
+        stage('Push to Artifactory') {
+            steps {
+              withCredentials([string(credentialsId: 'jboss-access-token', variable: 'ARTIFACTORY_API_TOKEN')]) {
+               sh'''
+                 set +x
+                 'curl -u ${ARTIFACTORY_API_TOKEN} -X PUT "http://34.239.127.114:8081/artifactory/petclinic-jars/${env.BUILD_NUMBER}/demo-${env.BUILD_NUMBER}.jar" -T target/demo-0.0.1*.jar'
+                '''
+            }
+          }
+        }
+       stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('SonarScanner') {
                     sh "mvn sonar:sonar \
-                        -Dsonar.host.url=http://lab.cloudsheger.com:9000 \
+                        -Dsonar.host.url=http://34.239.127.114:9000 \
                         -Dsonar.projectKey=demo \
                         -Dsonar.login=${SONAR_LOGIN_TOKEN} \
                         -Dsonar.projectName='demo' \
@@ -30,16 +41,6 @@ pipeline {
                         -Dsonar.java.binaries=target/classes"
                 }
             }
-        }
-        stage('Push to Artifactory') {
-            steps {
-              withCredentials([string(credentialsId: 'jboss-access-token', variable: 'ARTIFACTORY_API_TOKEN')]) {
-               sh'''
-                 set +x
-                 'curl -u ${ARTIFACTORY_API_TOKEN} -X PUT "http://lab.cloudsheger.com:8082/artifactory/java-web-app/demo/${env.BUILD_NUMBER}/demo-${env.BUILD_NUMBER}.jar" -T target/demo-0.0.1*.jar'
-                '''
-            }
-          }
         }
     }  
     post{
