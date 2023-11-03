@@ -21,13 +21,16 @@ docker-compose down
 
 ### Artifactory default username and password
 ```
+http://localhost:8081
 admin:password
 ```
 ### Jenkins password default username and password
 ```
+http://localhost:8080
 docker logs -f <container-id>
 ```
 ## SonarQube server default username and password
 ```
-admin:admin
+http://localhost:9000
+admin:4463
 ```
